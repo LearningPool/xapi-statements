@@ -106,7 +106,7 @@
     "@types/query-string": "5.1.0",
     "@types/source-map-support": "0.4.1",
     "@types/uuid": "3.4.3",
-    "@types/winston": "2.3.9",
+    "@types/winston": "2.4.4",
     "assert": "1.4.1",
     "commitizen": "2.10.1",
     "cz-conventional-changelog": "2.1.0",
