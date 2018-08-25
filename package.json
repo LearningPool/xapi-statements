@@ -92,7 +92,7 @@
     "@types/express": "4.16.0",
     "@types/fs-extra": "5.0.4",
     "@types/google-cloud__storage": "1.7.0",
-    "@types/helmet": "0.0.38",
+    "@types/helmet": "0.0.39",
     "@types/ioredis": "3.2.15",
     "@types/jsonwebtoken": "7.2.8",
     "@types/lodash": "4.14.104",
