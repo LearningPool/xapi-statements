@@ -101,7 +101,7 @@
     "@types/mongodb": "3.1.10",
     "@types/morgan": "1.7.35",
     "@types/node": "9.6.35",
-    "@types/node-fetch": "1.6.9",
+    "@types/node-fetch": "2.1.2",
     "@types/object-hash": "1.2.0",
     "@types/query-string": "5.1.0",
     "@types/source-map-support": "0.4.1",
