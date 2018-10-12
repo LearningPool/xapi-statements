@@ -80,7 +80,7 @@
     "string-to-stream": "^1.1.0",
     "uuid": "^3.0.1",
     "winston": "^2.3.1",
-    "winston-aws-cloudwatch": "^2.0.0"
+    "winston-aws-cloudwatch": "^3.0.0"
   },
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.1.31",
