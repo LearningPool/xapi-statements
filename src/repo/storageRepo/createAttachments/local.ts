@@ -15,7 +15,7 @@ export default (config: FacadeConfig): Signature => {
           hash: model.hash,
           contentType: model.contentType
         });
-        const writeStream = fs.createWriteStream(filePath);
+        const writeStream = fs.createWriteStream(filePath, { encoding: 'binary' });
         model.stream.pipe(writeStream);
         writeStream.on('finish', () => {
           resolve();
