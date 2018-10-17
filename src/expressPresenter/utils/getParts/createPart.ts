@@ -14,7 +14,7 @@ export default (streamPart: string): Part => {
   const content = streamPart.slice(hasBoundaryIndex ? boundaryIndex : partLength);
   const trimmedContent = trimStart(content, trimmedChars);
 
-  const stream = stringToStream(trimmedContent);
+  const stream = stringToStream(trimmedContent, 'binary');
   const headers = parseHeaders(unparsedHeaders);
 
   return { stream, headers };
