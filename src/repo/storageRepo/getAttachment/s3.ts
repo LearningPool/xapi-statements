@@ -5,6 +5,7 @@ import FacadeConfig from '../utils/s3Storage/FacadeConfig';
 
 export default (config: FacadeConfig): Signature => {
   return async ({ contentType, hash, lrs_id }) => {
+    // Adding this comment to attempt to trigger a build on an external PR.
     const dir = getAttachmentDir({ subFolder: config.subFolder, lrs_id });
     const filePath = getAttachmentPath({ dir, hash, contentType });
     const s3Params = {
