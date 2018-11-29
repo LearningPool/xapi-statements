@@ -98,7 +98,7 @@
     "@types/lodash": "4.14.104",
     "@types/mime-types": "2.1.0",
     "@types/mocha": "5.2.5",
-    "@types/mongodb": "3.1.14",
+    "@types/mongodb": "3.1.15",
     "@types/morgan": "1.7.35",
     "@types/node": "9.6.39",
     "@types/node-fetch": "1.6.9",
