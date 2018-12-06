@@ -17,9 +17,10 @@ export default (config: FacadeConfig): Signature => {
       await config.client
         .upload({
           Bucket: config.bucketName,
-          Body: content,
+          Body: Buffer.from(content, 'binary'),
           Key: filePath,
-          ContentEncoding: 'binary'
+          ContentEncoding: 'binary',
+          ContentLength: content.length,
         })
         .promise();
     });
