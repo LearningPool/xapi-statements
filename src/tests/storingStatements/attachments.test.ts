@@ -1,4 +1,6 @@
+import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
+import * as streamToString from 'stream-to-string';
 import ExtraAttachments from '../../errors/ExtraAttachments';
 import MissingAttachments from '../../errors/MissingAttachments';
 import setup from '../utils/setup';
@@ -7,6 +9,7 @@ import createAttachmentModel from '../utils/createAttachmentModel';
 import createAttachmentStatement from '../utils/createAttachmentStatement';
 import createAttachmentSubStatement from '../utils/createAttachmentSubStatement';
 import storeStatementsInService from '../utils/storeStatementsInService';
+import createClientModel from '../utils/createClientModel';
 
 const TEST_ID = '1c86d8e9-f325-404f-b3d9-24c451035582';
 const TEST_CONTENT_A = 'A';
@@ -22,7 +25,18 @@ describe('store statements with attachments', () => {
 
   it('should store the attachment when it is valid', async () => {
     const testStatement = createAttachmentStatement([TEST_ATTACHMENT_A]);
-    await storeStatements([testStatement], [TEST_ATTACHMENT_MODEL_A]);
+    const [statementId] = await storeStatements([testStatement], [TEST_ATTACHMENT_MODEL_A]);
+    const result = await service.getStatement({
+      id: statementId,
+      attachments: true,
+      voided: false,
+      client: createClientModel()
+    });
+    assert.equal(result.attachments.length, 1);
+    assert.equal(result.attachments[0].contentLength, TEST_ATTACHMENT_MODEL_A.contentLength);
+    assert.equal(result.attachments[0].contentType, TEST_ATTACHMENT_MODEL_A.contentType);
+    assert.equal(result.attachments[0].hash, TEST_ATTACHMENT_MODEL_A.hash);
+    assert.equal(await streamToString(result.attachments[0].stream), TEST_CONTENT_A);
   });
 
   it('should throw an error when there is a missing SHA from the statements', async () => {
