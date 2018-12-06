@@ -12,7 +12,7 @@ export default (config: FacadeConfig): Signature => {
     if (isExisting === false) {
       throw new Error(`Missing attachment file path ${filePath}`);
     }
-    const stream = fs.createReadStream(filePath);
+    const stream = fs.createReadStream(filePath, { encoding: 'binary' });
     const stats = await fs.stat(filePath);
     const contentLength = stats.size;
     return { stream, contentLength };

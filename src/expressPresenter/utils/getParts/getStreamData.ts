@@ -7,8 +7,8 @@ export default async (stream: ReadableStream): Promise<string> => {
   let data = '';
 
   await new Promise((resolve, reject) => {
-    stream.on('data', (chunk: string) => {
-      data += chunk;
+    stream.on('data', (chunk: Buffer) => {
+      data += chunk.toString('binary');
     });
 
     stream.on('end', () => {

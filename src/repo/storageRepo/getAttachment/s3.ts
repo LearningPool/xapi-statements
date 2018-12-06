@@ -15,7 +15,7 @@ export default (config: FacadeConfig): Signature => {
       .promise();
     const contentLength = s3HeadObject.ContentLength;
     const stream = config.client
-      .getObject({ Bucket: config.bucketName, Key: filePath })
+      .getObject({ Bucket: config.bucketName, Key: filePath, ResponseContentEncoding: 'binary' })
       .createReadStream();
     return { stream, contentLength };
   };
