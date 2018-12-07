@@ -1,7 +1,9 @@
-import Signature, { Opts, Result } from './Signature';
+import Signature from './Signature';
 import getAttachmentDir from '../../../utils/getAttachmentDir';
 import getAttachmentPath from '../../../utils/getAttachmentPath';
 import FacadeConfig from '../utils/s3Storage/FacadeConfig';
+import * as stringToStream from 'string-to-stream';
+import getStreamData from '../../../utils/getStreamData';
 
 export default (config: FacadeConfig): Signature => {
   return async ({ contentType, hash, lrs_id }) => {
@@ -17,6 +19,8 @@ export default (config: FacadeConfig): Signature => {
     const stream = config.client
       .getObject({ Bucket: config.bucketName, Key: filePath, ResponseContentEncoding: 'binary' })
       .createReadStream();
-    return { stream, contentLength };
+    const streamAsString = await getStreamData(stream);
+    const streamAsStream = stringToStream(streamAsString);
+    return { stream: streamAsStream, contentLength };
   };
 };

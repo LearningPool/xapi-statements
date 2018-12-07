@@ -1,6 +1,6 @@
 import { Readable as ReadableStream } from 'stream';
 import Part from '../../../models/Part';
-import getStreamData from './getStreamData';
+import getStreamData from '../../../utils/getStreamData';
 import getStreamParts from './getStreamParts';
 import createPart from './createPart';
 
