@@ -7,8 +7,6 @@ import { Readable as ReadableStream } from 'stream';
 import { map } from 'lodash';
 import * as streamToString from 'stream-to-string';
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import DataBeforeFirstBoundary from '../../errors/DataBeforeFirstBoundary';
-import DataBeyondFinalBoundary from '../../errors/DataBeyondFinalBoundary';
 import Part from '../../models/Part';
 import getParts from '../utils/getParts';
 
@@ -158,24 +156,26 @@ describe('expressPresenter/utils/getParts', () => {
     assert.deepEqual(actualParts, expectedParts);
   });
 
-  it('should throw error when there is content before the first boundary', async () => {
+  it('should not error when there is content before the first boundary', async () => {
     const testContent = `${crlf}${crlf}${TEST_CONTENT}`;
     const stream = new ReadableStream();
     stream.push(`invalid_content${TEST_PART_BOUNDARY}${crlf}Content-Type`);
     stream.push(`:application/json${testContent}${TEST_PART_BOUNDARY}--`);
     stream.push(null);
-    const promise = getTestParts(stream, TEST_BOUNDARY);
-    await assertError(DataBeforeFirstBoundary, promise);
+    const actualParts = await getTestParts(stream, TEST_BOUNDARY);
+    const expectedParts = [TEST_PART];
+    assert.deepEqual(actualParts, expectedParts);
   });
 
-  it('should throw error when there is content after the final boundary', async () => {
+  it('should not error when there is content after the final boundary', async () => {
     const testContent = `${crlf}${crlf}${TEST_CONTENT}`;
     const stream = new ReadableStream();
     stream.push(`${TEST_PART_BOUNDARY}${crlf}Content-Type`);
     stream.push(`:application/json${testContent}${TEST_PART_BOUNDARY}--invalid_content`);
     stream.push(null);
-    const promise = getTestParts(stream, TEST_BOUNDARY);
-    await assertError(DataBeyondFinalBoundary, promise);
+    const actualParts = await getTestParts(stream, TEST_BOUNDARY);
+    const expectedParts = [TEST_PART];
+    assert.deepEqual(actualParts, expectedParts);
   });
 
   it('should throw error when there is an error in the stream', async () => {
