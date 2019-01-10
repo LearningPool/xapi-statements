@@ -13,47 +13,68 @@ import {
   getActivitiesFromStatement,
   getRelatedActivitiesFromStatement
 } from '../queriables/getActivitiesFromStatement';
-import { getAgentsFromStatement, getRelatedAgentsFromStatement } from '../queriables/getAgentsFromStatement';
+import {
+  getAgentsFromStatement,
+  getRelatedAgentsFromStatement
+} from '../queriables/getAgentsFromStatement';
+import getMetadataFromStatement from '../queriables/getMetadataFromStatement';
 
-export default async (models: any[], attachments: AttachmentModel[], client: ClientModel) => {
+export default async (
+  models: any[],
+  attachments: AttachmentModel[],
+  client: ClientModel
+) => {
   const storedTime = new Date();
   const storedTimeString = storedTime.toISOString();
 
-  const hashAttachmentDictionary = groupBy(attachments, (attachment) => {
+  const hashAttachmentDictionary = groupBy(attachments, attachment => {
     return attachment.hash;
   });
-  const uniqueHashAttachmentDictionary = mapValues(hashAttachmentDictionary, (attachments) => {
-    return attachments[0];
-  });
+  const uniqueHashAttachmentDictionary = mapValues(
+    hashAttachmentDictionary,
+    attachments => {
+      return attachments[0];
+    }
+  );
 
-  const unstoredModelPromises = models.map(async (model: any): Promise<UnstoredStatementModel> => {
-    const objectTypesModel = setupObjectTypes(model);
-    await checkSignedStatements(objectTypesModel, uniqueHashAttachmentDictionary);
-    const preHashStatement = setupPreHashStatement(objectTypesModel);
-    const fullStatementWithID = { ...objectTypesModel, ...preHashStatement };
-    const postHashStatement = setupPostHashStatement(fullStatementWithID, storedTimeString, client.authority);
-    const timestampTime = new Date(postHashStatement.timestamp);
+  const unstoredModelPromises = models.map(
+    async (model: any): Promise<UnstoredStatementModel> => {
+      const objectTypesModel = setupObjectTypes(model);
+      await checkSignedStatements(
+        objectTypesModel,
+        uniqueHashAttachmentDictionary
+      );
+      const preHashStatement = setupPreHashStatement(objectTypesModel);
+      const fullStatementWithID = { ...objectTypesModel, ...preHashStatement };
+      const postHashStatement = setupPostHashStatement(
+        fullStatementWithID,
+        storedTimeString,
+        client.authority
+      );
+      const timestampTime = new Date(postHashStatement.timestamp);
 
-    return {
-      hasGeneratedId: model.id === undefined,
-      organisation: client.organisation,
-      lrs_id: client.lrs_id,
-      client: client._id,
-      person: null,
-      active: true,
-      voided: false,
-      timestamp: timestampTime,
-      stored: storedTime,
-      hash: sha1(preHashStatement),
-      agents: getAgentsFromStatement(postHashStatement),
-      relatedAgents: getRelatedAgentsFromStatement(postHashStatement),
-      registrations: getRegistrationsFromStatement(postHashStatement),
-      verbs: getVerbsFromStatement(postHashStatement),
-      activities: getActivitiesFromStatement(postHashStatement),
-      relatedActivities: getRelatedActivitiesFromStatement(postHashStatement),
-      statement: postHashStatement,
-    };
-  });
+      return {
+        hasGeneratedId: model.id === undefined,
+        organisation: client.organisation,
+        lrs_id: client.lrs_id,
+        client: client._id,
+        person: null,
+        active: true,
+        voided: false,
+        timestamp: timestampTime,
+        stored: storedTime,
+        hash: sha1(preHashStatement),
+        agents: getAgentsFromStatement(postHashStatement),
+        relatedAgents: getRelatedAgentsFromStatement(postHashStatement),
+        registrations: getRegistrationsFromStatement(postHashStatement),
+        verbs: getVerbsFromStatement(postHashStatement),
+        activities: getActivitiesFromStatement(postHashStatement),
+        relatedActivities: getRelatedActivitiesFromStatement(postHashStatement),
+        statement: postHashStatement,
+        metadata: getMetadataFromStatement(postHashStatement)
+      };
+    }
+  );
 
   const unstoredModels = await Promise.all(unstoredModelPromises);
   return unstoredModels;

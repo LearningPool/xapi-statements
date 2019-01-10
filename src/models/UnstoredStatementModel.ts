@@ -21,6 +21,7 @@ interface UnstoredStatementModel {
   activities: string[];
   relatedActivities: string[];
   statement: Statement;
+  metadata: { [key: string]: any };
 }
 
 export default UnstoredStatementModel;
