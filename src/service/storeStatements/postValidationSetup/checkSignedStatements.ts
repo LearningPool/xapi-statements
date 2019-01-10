@@ -63,7 +63,7 @@ export default async (
     }
 
     // Validates the decoded x5c header.
-    const decodedX5C = decodedHeaders.x5c as string[]|undefined;
+    const decodedX5C = decodedHeaders.x5c as string[] | undefined;
     if (decodedX5C !== undefined) {
       if (!isArray(decodedX5C)) {
         throw new InvalidX5CType(originalStatement.id);
@@ -88,7 +88,7 @@ export default async (
     const decodedStatement = decodedToken.payload;
     const decodedStatementHash = sha1(decodedStatement);
     if (originalStatementHash !== decodedStatementHash) {
-      throw new InvalidSignedStatement(originalStatement.id);
+      throw new InvalidSignedStatement(originalStatement, decodedStatement);
     }
   });
   await Promise.all(attachmentChecks);

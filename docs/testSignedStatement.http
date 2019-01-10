@@ -1,0 +1,17 @@
+POST http://localhost:1337/xAPI/statements HTTP/1.1
+X-Experience-API-Version: 1.0.1
+content-type: multipart/mixed; boundary=--------------------------411104623078647998357405
+
+----------------------------411104623078647998357405
+Content-Type: application/json
+Content-Disposition: form-data; name="statement"
+
+[{"verb":{"id":"http://adlnet.gov/expapi/verbs/initialized","display":{"en-US":"initialized"}},"actor":{"objectType":"Agent","name":"Ivan","account":{"homePage":"https://xapi.mylearnerportal.com/","name":"5bc0c12f55c7153b72fb5db1"}},"object":{"id":"https://www.youtube.com/watch?v=tlBbt5niQto","definition":{"name":{"en-US":"tlBbt5niQto"}}},"context":{"contextActivities":{"grouping":[{"id":"http://adlnet.gov/event/xapiworkshop/launch/no-customData"}]}},"id":"fb8a5847-1439-47de-b4dc-515a2bde1bb7","attachments":[{"usageType":"http://adlnet.gov/expapi/attachments/signature","display":{"en-US":"A JWT signature"},"description":{"en-US":"Signing this doc was posted from the Launch Server"},"contentType":"application/octet-stream","length":919,"sha2":"13f746f8c04df00c0eeaab9b0c6edef2a0dd0bab4c1c4f9712474dd7c1279510"}]}]
+
+----------------------------411104623078647998357405
+X-Experience-API-Hash: 13f746f8c04df00c0eeaab9b0c6edef2a0dd0bab4c1c4f9712474dd7c1279510
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: binary
+
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJiIjp7ImlkIjoiaHR0cDovL2FkbG5ldC5nb3YvZXhwYXBpL3ZlcmJzL2luaXRpYWxpemVkIiwiZGlzcGxheSI6eyJlbi1VUyI6ImluaXRpYWxpemVkIn19LCJhY3RvciI6eyJvYmplY3RUeXBlIjoiQWdlbnQiLCJuYW1lIjoiSXZhbiIsImFjY291bnQiOnsiaG9tZVBhZ2UiOiJodHRwczovL3hhcGkubXlsZWFybmVycG9ydGFsLmNvbS8iLCJuYW1lIjoiNWJjMGMxMmY1NWM3MTUzYjcyZmI1ZGIxIn19LCJvYmplY3QiOnsib2JqZWN0VHlwZSI6IkFjdGl2aXR5IiwiaWQiOiJodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXRsQmJ0NW5pUXRvIiwiZGVmaW5pdGlvbiI6eyJuYW1lIjp7ImVuLVVTIjoidGxCYnQ1bmlRdG8ifX19LCJjb250ZXh0Ijp7ImNvbnRleHRBY3Rpdml0aWVzIjp7Imdyb3VwaW5nIjpbeyJvYmplY3RUeXBlIjoiQWN0aXZpdHkiLCJpZCI6Imh0dHA6Ly9hZGxuZXQuZ292L2V2ZW50L3hhcGl3b3Jrc2hvcC9sYXVuY2gvbm8tY3VzdG9tRGF0YSJ9XX19LCJpZCI6ImZiOGE1ODQ3LTE0MzktNDdkZS1iNGRjLTUxNWEyYmRlMWJiNyJ9.VSoPbX8OERxDCEut6OmqUa53wvKh4dc262nRxb6SIQf0VbDjc2SwLVYVZN9hcfplJl66BNRD_fGzOI8ALsA0Qf0H917V0ZilGtpYGNSI9Uv1ktRxADBijMu6VVUDORLie_U1TurKdKGPHlfo-BXCPhwXAv0xUm5LL_VpO2vtWxU
+----------------------------411104623078647998357405--

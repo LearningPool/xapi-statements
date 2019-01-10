@@ -43,7 +43,7 @@ const translator: Translator = {
     return `Invalid JWS for '${err.statementId}'`;
   },
   invalidSignedStatementError: (err) => {
-    return `Signed statement should match original statement for '${err.statementId}'`;
+    return `Signed statement should match original statement for '${err.originalStatement.id}'`;
   },
   invalidSignatureAlgorithmError: (err) => {
     return `Invalid JWS algorithm for '${err.statementId}'`;

@@ -11,7 +11,8 @@ import getRegistrationsFromStatement from '../queriables/getRegistrationsFromSta
 import getVerbsFromStatement from '../queriables/getVerbsFromStatement';
 import {
   getActivitiesFromStatement,
-  getRelatedActivitiesFromStatement } from '../queriables/getActivitiesFromStatement';
+  getRelatedActivitiesFromStatement
+} from '../queriables/getActivitiesFromStatement';
 import { getAgentsFromStatement, getRelatedAgentsFromStatement } from '../queriables/getAgentsFromStatement';
 
 export default async (models: any[], attachments: AttachmentModel[], client: ClientModel) => {

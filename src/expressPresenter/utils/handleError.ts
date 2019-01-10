@@ -1,8 +1,8 @@
 import { Response } from 'express';
-import { isNull, isUndefined } from 'lodash';
 import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
+import sendObject from 'jscommons/dist/expressPresenter/utils/sendObject';
 import { FORBIDDEN, BAD_REQUEST, INTERNAL_SERVER_ERROR } from 'http-status-codes';
 import ChangedStatementRef from '../../errors/ChangedStatementRef';
 import Conflict from '../../errors/Conflict';
@@ -75,8 +75,9 @@ export default ({ config, errorId, res, err }: Options): Response => {
   if (err instanceof InvalidSignedStatement) {
     const code = BAD_REQUEST;
     const message = translator.invalidSignedStatementError(err);
+    const obj = { message, statement: err.originalStatement };
     logError(message);
-    return sendMessage({ res, code, errorId, message });
+    return sendObject({ res, code, errorId, obj });
   }
   if (err instanceof JsonSyntaxError) {
     const code = BAD_REQUEST;
