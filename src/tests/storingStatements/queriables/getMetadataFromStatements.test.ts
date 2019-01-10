@@ -41,7 +41,7 @@ describe('create metadata with result duration', () => {
   it('should return result duration statement', () => {
     const metadata = getMetadataFromStatement(statementDefaults);
     assert.deepEqual(metadata, {
-      'https://learninglocker.net/result-duration': { seconds: 37080306 }
+      'https://learninglocker&46;net/result-duration': { seconds: 37080306 }
     });
   });
 });
